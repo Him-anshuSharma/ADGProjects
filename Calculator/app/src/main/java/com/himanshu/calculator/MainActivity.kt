@@ -1,216 +1,187 @@
 package com.himanshu.calculator
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.himanshu.calculator.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
 
     private lateinit var binding: ActivityMainBinding
-    private var num1 = "0"
-    private var num2 = "0"
-    private var dispStr = ""
-    private var opr = "+"
-    private var operatorClicked = false
-    private var decimalClicked = false
+    private var expression: String = ""
+    private var num1: Float = 0f
+    private var num2: Float = 0f
+    private var operator: String = ""
+    private var operatorPressed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
 
-        binding.one.setOnClickListener {
-            if (!operatorClicked) {
-                if(num1 == "0"){
-                    num1 = "1"
-                }
-                num1 += "1"
+        binding.bclear.setOnClickListener {
+            expression = ""
+            binding.result.text = "0"
+            num1=0f
+            num2=0f
+            operatorPressed=false
+        }
 
+        binding.b0.setOnClickListener {
+            if(operatorPressed){
+                num2 *= 10
             }
             else{
-                if(num2 == "0"){
-                    num2 = "1"
-                }
-                num2 += "1"
+                num1 *= 10
             }
-            dispStr += 1
+            expression += "0"
+            binding.result.text = expression
         }
-
-        binding.two.setOnClickListener {
-            if (!operatorClicked) {
-                if(num1 == "0"){
-                    num1 = "2"
-                }
-                num1 += "2"
+        binding.b1.setOnClickListener {
+            if(operatorPressed){
+                num2 = num2*10+1
             }
             else{
-                if(num2 == "0"){
-                    num2 = "2"
-                }
-                num2 += "2"
+                num1 = num1*10+1
             }
+            expression += "1"
+            binding.result.text = expression
         }
-
-        binding.three.setOnClickListener {
-            if (!operatorClicked) {
-                if(num1 == "0"){
-                    num1 = "3"
-                }
-                num1 += "3"
+        binding.b2.setOnClickListener {
+            if(operatorPressed){
+                num2 = num2*10+2
             }
             else{
-                if(num2 == "0"){
-                    num2 = "3"
-                }
-                num2 += "3"
+                num1 = num1*10+2
             }
+            expression += "2"
+            binding.result.text = expression
         }
-
-        binding.four.setOnClickListener {
-            if (!operatorClicked) {
-                if(num1 == "0"){
-                    num1 = "4"
-                }
-                num1 += "4"
+        binding.b3.setOnClickListener {
+            if(operatorPressed){
+                num2 = num2*10+3
             }
             else{
-                if(num2 == "0"){
-                    num2 = "4"
-                }
-                num2 += "4"
+                num1 = num1*10+3
             }
+            expression += "3"
+            binding.result.text = expression
         }
-
-        binding.five.setOnClickListener {
-            if (!operatorClicked) {
-                if(num1 == "0"){
-                    num1 = "5"
-                }
-                num1 += "5"
+        binding.b4.setOnClickListener {
+            if(operatorPressed){
+                num2 = num2*10 + 4
+            }
+            else num1 = num1*10 + 4
+            expression += "4"
+            binding.result.text = expression
+        }
+        binding.b5.setOnClickListener {
+            if(operatorPressed){
+                num2 = num2*10 + 5
             }
             else{
-                if(num2 == "0"){
-                    num2 = "5"
-                }
-                num2 += "5"
+                num1 = num1*10 + 5
             }
+            expression += "5"
+            binding.result.text = expression
         }
-
-        binding.six.setOnClickListener {
-            if (!operatorClicked) {
-                if(num1 == "0"){
-                    num1 = "6"
-                }
-                num1 += "6"
+        binding.b6.setOnClickListener {
+            if(operatorPressed){
+                num2 = num2*10 + 6
             }
             else{
-                if(num2 == "0"){
-                    num2 = "6"
-                }
-                num2 += "6"
+                num1 = num1*10 + 6
             }
+            expression += "6"
+            binding.result.text = expression
         }
-
-        binding.seven.setOnClickListener {
-            if (!operatorClicked) {
-                if(num1 == "0"){
-                    num1 = "7"
-                }
-                num1 += "7"
+        binding.b7.setOnClickListener {
+            if(operatorPressed){
+                num2 = num2*10 + 7
             }
             else{
-                if(num2 == "0"){
-                    num2 = "7"
-                }
-                num2 += "7"
+                num1 = num1*10 + 7
             }
+            expression += "7"
+            binding.result.text = expression
         }
-
-        binding.eight.setOnClickListener {
-            if (!operatorClicked) {
-                if(num1 == "0"){
-                    num1 = "8"
-                }
-                num1 += "8"
+        binding.b8.setOnClickListener {
+            if(operatorPressed){
+                num2 = num2*10 + 8
             }
             else{
-                if(num2 == "0"){
-                    num2 = "8"
-                }
-                num2 += "8"
+                num1 = num1*10 + 8
             }
+            expression += "8"
+            binding.result.text = expression
         }
-
-        binding.nine.setOnClickListener {
-            if (!operatorClicked) {
-                if(num1 == "0"){
-                    num1 = "9"
-                }
-                num1 += "9"
+        binding.b9.setOnClickListener {
+            if(operatorPressed){
+                num2 = num2*10 + 9
             }
             else{
-                if(num2 == "0"){
-                    num2 = "9"
+                num1 = num1*10 + 9
+            }
+            expression += "9"
+            binding.result.text = expression
+        }
+        binding.bplus.setOnClickListener {
+            operatorPressed = true
+            operator = "+"
+            expression += " + "
+            binding.result.text = expression
+        }
+        binding.bminus.setOnClickListener {
+            operatorPressed = true
+            operator = "-"
+            expression += " - "
+            binding.result.text = expression
+        }
+        binding.bx.setOnClickListener {
+            operatorPressed = true
+            operator = "x"
+            expression += " x "
+            binding.result.text = expression
+        }
+        binding.bdivide.setOnClickListener {
+            operatorPressed = true
+            operator = "/"
+            expression += " / "
+            binding.result.text = expression
+        }
+        binding.bequals.setOnClickListener {
+            if(operatorPressed){
+                when(operator){
+                    "+"->{
+                        expression = (num1+num2).toString()
+                        binding.result.text = expression
+                        num1 += num2
+                        num2 = 0f
+                        operatorPressed = false
+                    }
+                    "-"->{
+                        expression = (num1-num2).toString()
+                        binding.result.text = expression
+                        num1 -= num2
+                        num2 = 0f
+                        operatorPressed = false
+                    }
+                    "x"->{
+                        expression = (num1*num2).toString()
+                        binding.result.text = expression
+                        num1 *= num2
+                        num2 = 0f
+                        operatorPressed = false
+                    }
+                    "/"->{
+                        expression = (num1/num2).toString()
+                        binding.result.text = expression
+                        num1 /= num2
+                        num2 = 0f
+                        operatorPressed = false
+                    }
                 }
-                num2 += "9"
             }
         }
-
-        binding.zero.setOnClickListener {
-            if (!operatorClicked) {
-                if(num1 == "0"){
-                    num1 = "0"
-                }
-                num1 += "0"
-            }
-            else{
-                if(num2 == "0"){
-                    num2 = "0"
-                }
-                num2 += "0"
-            }
-        }
-        binding.decimal.setOnClickListener {
-            decimalClicked = true
-        }
-
-        binding.plus.setOnClickListener {
-            operatorClicked = true
-            opr = "+"
-        }
-        binding.minus.setOnClickListener {
-            operatorClicked = true
-            opr = "-"
-        }
-        binding.multiply.setOnClickListener {
-            opr = "*"
-        }
-        binding.divide.setOnClickListener {
-            operatorClicked = true
-            opr = "/"
-        }
-        binding.equals.setOnClickListener {
-            binding.result.text = calculate(num1.toFloat(),num2.toFloat(),opr)
-        }
-    }
-
-    private fun calculate(num1:Float,num2:Float,opr:String): String {
-        var result = 0f
-        when(opr){
-            "+"->{
-                result = num1+num2
-            }
-            "-"->{
-                result = num1-num2
-            }
-            "*"->{
-                result = num1*num2
-            }
-            "/"->{
-                result = num1/num2
-            }
-        }
-        return result.toString()
     }
 }
